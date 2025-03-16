@@ -1,0 +1,43 @@
+replicaCount: 1
+
+image:
+  repository: vechkanovvv/app_python
+  tag: v1
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: true
+  name: ""
+  automount: true
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+secrets:
+  mySecret: "default_secret_here"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
